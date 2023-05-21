@@ -29,9 +29,14 @@ async def get_note_by_id(note_id: int, db: Session = Depends(get_db)) -> models.
     return db_note
 
 
-@app.put("/notes/{note_id}", response_model=schemas.Note)
-async def create_note(note_id: int, note: schemas.NoteCreate, db: Session = Depends(get_db)):
-    return crud.create_note(db, note_id, note)
+@app.post("/notes", response_model=schemas.Note)
+async def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db)):
+    return crud.create_note(db, note)
+
+
+@app.put("/notes", response_model=schemas.Note)
+async def updat_note(note: schemas.Note, db: Session = Depends(get_db)):
+    return crud.update_note(db, note)
 
 
 @app.get("/")

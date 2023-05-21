@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 
 
 class NoteBase(BaseModel):
-    title: str = Field(max_length=10)
+    title: str = Field(max_length=256)
     content: Union[str, None] = Field(default=None, max_length=10)
     parent_explorer_id: int
 

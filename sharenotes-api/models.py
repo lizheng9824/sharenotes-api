@@ -14,3 +14,7 @@ class Note(Base):
         self.title = title
         self.content = content
         self.parent_explorer_id = parent_explorer_id
+
+    def update_dict(self, dict):
+        for name, value in dict.items():
+            setattr(self, name, value)
