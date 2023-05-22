@@ -2,8 +2,9 @@ import models
 import schemas
 import crud
 import uvicorn
+from typing import Annotated, Union
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, Path, HTTPException
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 
@@ -37,6 +38,11 @@ async def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db)):
 @app.put("/notes", response_model=schemas.Note)
 async def updat_note(note: schemas.Note, db: Session = Depends(get_db)):
     return crud.update_note(db, note)
+
+
+@app.delete("/notes/{note_id}")
+async def delete_note(note_id: Annotated[int, Path(title="The ID of the note to get")], db: Session = Depends(get_db)):
+    crud.delete_note(db, note_id)
 
 
 @app.get("/")

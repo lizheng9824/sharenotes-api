@@ -18,7 +18,14 @@ def create_note(db: Session, note: schemas.NoteCreate):
 
 def update_note(db: Session, note: schemas.Note):
     db_note = get_note(db, note.note_id)
+    # TODO: 存在しない場合、エラーをraiseする。
     db_note.update_dict(note.dict())
     db.commit()
     db.refresh(db_note)
     return db_note
+
+
+def delete_note(db: Session, note_id: int):
+    db_note = get_note(db, note_id)
+    db.delete(db_note)
+    db.commit()
