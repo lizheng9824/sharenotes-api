@@ -1,0 +1,1 @@
+INSERT INTO notes (title, content, parent_explorer_id) VALUES ('my note', 'It is a good day.', 1);
